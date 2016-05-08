@@ -1,0 +1,17 @@
+pluxml_nginx:
+    image: nginx:stable-alpine
+    expose:
+        - 80
+    links:
+        - pluxml_php
+    volumes_from:
+        - pluxml_php
+
+pluxml_php:
+    build: .
+
+    volumes:
+        - ./data/:/var/www/pluxml/data/
+
+    # environment:
+    #     INSTALL: add this variable to keep install.php

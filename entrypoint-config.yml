@@ -1,0 +1,13 @@
+command: php-fpm
+
+config_files:
+    - /usr/local/lib/nginx/pluxml.conf.tpl: /etc/nginx/conf.d/pluxml.conf
+
+pre_conf_commands:
+    # Set rights to pluxml
+    - deluser www-data
+    - adduser -u 101 -S www-data && addgroup -g 101 -S www-data
+    - chown -R www-data:www-data /var/www/pluxml || true
+    - (test -z "$INSTALL" && rm /var/www/pluxml/install.php) || true
+
+debug: true
