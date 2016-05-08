@@ -23,4 +23,4 @@ pluxml_nginx:
 
 ```
 
-This container is using `[pyentrypoint](https://github.com/cmehay/pyentrypoint)` to generate its configuration.
+This container is using [`pyentrypoint`](https://github.com/cmehay/pyentrypoint) to generate its configuration.
