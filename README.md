@@ -3,23 +3,28 @@
 Custom php-fpm container for [Pluxml](http://www.pluxml.org/) to be linked with legacy nginx.
 
 ```yaml
-pluxml_php:
-    build: .
+version: "2"
 
-    volumes:
-        - ./data/:/var/www/pluxml/data/ # Keep data
+services:
+    pluxml_nginx:
+        image: nginx:stable-alpine
+        ports:
+            - 80
+        links:
+            - pluxml_php
+        volumes_from:
+            - pluxml_php
 
-    # environment:
-    #     INSTALL: add this variable to keep install.php
+    pluxml_php:
+        image: goldy/pluxml
 
-pluxml_nginx:
-    image: nginx:stable-alpine # Legacy nginx
-    expose:
-        - 80
-    links:
-        - pluxml_php # Link container here
-    volumes_from:
-        - pluxml_php # mount volume here to add nginx configuration
+        volumes:
+            - ./data/:/var/www/pluxml/data/
+
+        # environment:
+        #     INSTALL: add this variable to keep install.php
+volumes:
+  data: {}
 
 ```
 

@@ -6,8 +6,10 @@ config_files:
 pre_conf_commands:
     # Set rights to pluxml
     - deluser www-data
+    # Add user with the same uid/gid as nginx
     - adduser -u 101 -S www-data && addgroup -g 101 -S www-data
     - chown -R www-data:www-data /var/www/pluxml || true
+    # Remove install.php if env INSTALL is set
     - (test -z "$INSTALL" && rm /var/www/pluxml/install.php) || true
 
 debug: true
